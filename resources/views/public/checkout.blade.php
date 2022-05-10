@@ -86,16 +86,16 @@
             <div class="col-4">
                 <div class="card mt-3  bg-light">
                     <div class="card-body">
-                        <h5>sonu (12345678)</h5>
-                        <p class="small">uwqyucgwyfeu ytwqoeuyfriuowqe <br>iuebyivuybierwy</p>
-                        <a href="" class="btn btn-info small">use this address</a>
+                        <h5>Sonu Kumar (7903738819)</h5>
+                        <p class="small">Panchwati chowk Rambagh <br>Purnia</p>
+                        <a href="" class="btn btn-warning small">Use this address</a>
                     </div>
                 </div>
                 <div class="card mt-3  bg-light">
                     <div class="card-body">
-                        <h5>sonu (12345678)</h5>
-                        <p class="small">uwqyucgwyfeu ytwqoeuyfriuowqe <br>uvteqwetrq8rtqew8</p>
-                        <a href="" class="btn btn-info small">use this address</a>
+                        <h5>Sonu Mehta (9709464571)</h5>
+                        <p class="small">Panchwati chowk Rambagh <br>Purnia</p>
+                        <a href="" class="btn btn-warning small ">use this address</a>
                     </div>
                 </div>
             </div>
