@@ -76,7 +76,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-6 mt-4 ">
-                                    <input type="sumbit" value="Submit"  class="btn btn-success w-100" >
+                                    <input type="submit" name="submit" class="btn btn-success w-100" >
                                 </div>
                             </div>
                        </form>
