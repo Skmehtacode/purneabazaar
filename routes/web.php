@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProductController;
 
 
 
@@ -23,7 +22,16 @@ Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
 
 Route::prefix('admin')->group(function(){
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
-    Route::resource("product",ProductController::class);
+    Route::resources([
+
+        "product"=>App\Http\Controllers\ProductController::class,
+        "category"=>App\Http\Controllers\CategoryController::class,
+        "brand"=>App\Http\Controllers\BrandController::class,
+        "coupon"=>App\Http\Controllers\CouponController::class,
+        "order"=>App\Http\Controllers\OrderController::class,
+        "Payment"=>App\Http\Controllers\PaymentController::class,
+        "user"=>App\Http\Controllers\UserController::class,
+    ]);
 });
 
 
