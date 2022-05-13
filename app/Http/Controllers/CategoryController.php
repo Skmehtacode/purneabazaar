@@ -17,7 +17,7 @@ class CategoryController extends Controller
     
     public function create()
     {
-        $data['category'] = Category::where("parent_id","0")->get();
+        $data['categories'] = Category::where("parent_id","0")->get();
         return view("admin.insertCategory",$data);
     }
 
@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $category->cat_title = $request->cat_title;
         $category->parent_id = $request->parent_id;
         $category->save();
-        return redirect()->route("category.index");
+        return redirect()->route("category.index")->with("success","wow! data inserted successfully");
     }
 
    
@@ -45,13 +45,25 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        //
+        $data['category'] = $category;
+        $data['categories'] = Category::where("parent_id","0")->get();
+        return view('admin.editCategory',$data);
     }
 
    
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+
+            'cat_title' =>"required",
+            'parent_id' =>"required",
+        ]);
+
+      
+        $category->cat_title = $request->cat_title;
+        $category->parent_id = $request->parent_id;
+        $category->save();
+        return redirect()->route("category.index")->with("success","wow! data inserted successfully");
     }
 
     
@@ -59,7 +71,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($category->id);
         $category->delete();
-        return redirect()->route("category.index");
+        return redirect()->route("category.index")->with("error","oh! data deleted successfully");
     }
 }
 

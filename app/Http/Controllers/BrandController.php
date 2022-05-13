@@ -2,47 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        return view("admin.manageBrand");
+        $data['brands'] = Brand::all();
+        return view("admin.manageBrand",$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        //
+        return view("admin.insertBrand");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'brand_title' => "required",
+        ]);
+
+        $brand = new Brand();
+        $brand->brand_title = $request->brand_title;
+        $brand->save();
+        return redirect()->route("brand.index")->with("success","wow! brand inserted successfully");
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
@@ -54,31 +46,28 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        //
+        return view("admin/editBrand",["brand"=>$brand]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+   
+    public function update(Request $request, Brand $brand)
     {
-        //
+        $request->validate([
+            'brand_title' => "required",
+        ]);
+
+       
+        $brand->brand_title = $request->brand_title;
+        $brand->save();
+        return redirect()->route("brand.index")->with("success","wow! brand inserted successfully");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy(Brand $brand)
     {
-        //
+        $brand->delete();
+        return redirect()->route("admin.index")->with("error","oh! data deleted successfully");
     }
 }

@@ -31,6 +31,7 @@ Route::prefix('admin')->group(function(){
         "order"=>App\Http\Controllers\OrderController::class,
         "Payment"=>App\Http\Controllers\PaymentController::class,
         "user"=>App\Http\Controllers\UserController::class,
+        "address"=>App\Http\Controllers\addressController::class,
     ]);
 });
 

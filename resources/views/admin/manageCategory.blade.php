@@ -6,6 +6,18 @@
                 @include('admin.side')
             </div>
             <div class="col-9">
+                <div class="container">
+                    @if (($msg = Session::get("success")))
+                        <div class="alert bg-success text-white">
+                                {{$msg}}
+                        </div>
+                    @endif
+                    @if (($msg = Session::get("error")))
+                        <div class="alert bg-danger text-white">
+                                {{$msg}}
+                        </div>
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-8">
                         <h6>Manage Category</h6>
@@ -32,7 +44,7 @@
                                         @csrf
                                         @method("delete")
                                         <input type="submit" class="btn btn-danger" value="X">
-                                        <a href=""class="btn btn-info small">edit</a>     
+                                        <a href="{{route('category.edit',[$item])}}"class="btn btn-info small">edit</a>     
                                     </form>
                             </td>
                         </tr>

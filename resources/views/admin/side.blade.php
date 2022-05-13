@@ -7,6 +7,7 @@
     <a href="{{route('order.index')}}" class="list-group-item list-group-item-action">Manage Order</a>
     <a href="{{route('coupon.index')}}" class="list-group-item list-group-item-action">Manage Coupon</a>
     <a href="{{route('Payment.index')}}" class="list-group-item list-group-item-action">Manage payment</a>
+    <a href="{{route('address.index')}}" class="list-group-item list-group-item-action">Manage Address</a>
     <a href="" class="list-group-item list-group-item-action">Reports</a>
     <a href="" class="list-group-item list-group-item-action">Setting</a>
     <a href="" class="list-group-item list-group-item-action">Logout</a>

@@ -6,14 +6,16 @@
                 @include("admin.side")
             </div>
             <div class="col-4 mx-auto">
-                <h2>Insert category here</h2>
-                <div class="card mt-3">
+                <h3>Update category here</h3>
+                <div class="card">
                     <div class="card-body">
-                        <form action="{{route("category.store")}}" method="post">
+                        <form action="{{route("category.update",$category)}}" method="post">
+                            @method('put')
                             @csrf
                             <div class="mb-3">
                                 <label for="">Parent</label>
                                 <select name="parent_id" class="form-select" value="{{old("parent_id")}}">
+                                    <option value="{{$category->parent_id}}">{{$category->parent_id}}</option>
                                     <option value="0">Main category</option>
                                     @foreach ($categories as $item)
                                         <option value="{{$item->id}}">{{$item->cat_title}}</option>
@@ -25,13 +27,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">category title</label>
-                                <input type="text" name="cat_title" class="form-control">
+                                <input type="text" name="cat_title" value="{{$category->cat_title}}" class="form-control">
                                 @error('cat_title')
                                     <p class="small text-danger">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="submit"  value="Create Category" class="btn btn-info w-100">
+                                <input type="submit"  value="Update Category" class="btn btn-info w-100">
                             </div>
                         </form>
                     </div>
