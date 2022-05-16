@@ -11,20 +11,29 @@
                         <h6>Manage User</h6>
                     </div>
                     <div class="col-4">
-                        <a href="" class="btn btn-success">Add New User</a>
+                        <a href="{{route("user.create")}}" class="btn btn-success">Add New User</a>
                     </div>
                 </div>
                 <table class="table">
                     <tr>
                         <th>id</th>
-                        <th>Username</th>
+                        <th>Name</th>
                         <th>Email</th>
                         <th>Contact</th>
-                        <th>Address</th>
-                        <th>City</th>
-                        <th>State</th>
                         <th>Action</th>
                     </tr>
+                    @foreach($user as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->email}}</td>
+                            <td>{{$item->contact}}</td>
+                            <td>
+                                    <a href="" class="btn btn-danger btn-sm">X</a>
+                                    <a href="" class="btn btn-success btn-sm">edit</a>          
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

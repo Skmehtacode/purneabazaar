@@ -11,22 +11,39 @@
                         <h6>Manage Address</h6>
                     </div>
                     <div class="col-4">
-                        <a href="" class="btn btn-success">Add New Address</a>
+                        <a href="{{route('address.create')}}" class="btn btn-success">Add New Address</a>
                     </div>
                 </div>
                 <table class="table">
                     <tr>
                         <th>id</th>
                         <th>Username</th>
+                        <th>Name</th>
                         <th>Contact</th>
                         <th>Street</th>
-                        <th>Ordered</th>
                         <th>Landmark</th>
                         <th>City</th>
                         <th>Pincode</th>
                         <th>State</th>
                         <th>Action</th>
                     </tr>
+                    @foreach ($address as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->user_id}}</td>
+                            <td>{{$item->contact}}</td>
+                            <td>{{$item->street}}</td>
+                            <td>{{$item->landmark}}</td>
+                            <td>{{$item->city}}</td>
+                            <td>{{$item->pincode}}</td>
+                            <td>{{$item->state}}</td>
+                            <td>
+                                <input type="submit" class="btn btn-danger" value="X">
+                                <a href="" class="btn btn-success">edit</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

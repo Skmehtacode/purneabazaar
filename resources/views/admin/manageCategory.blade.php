@@ -30,7 +30,7 @@
                     <tr>
                         <th>id</th>
                         <th>Title</th>
-                        <th>Parent id</th>
+                        <th>Parent</th>
                         <th>Action</th>
                     </tr>
 
@@ -38,9 +38,16 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->cat_title}}</td>
-                            <td>{{$item->parent_id}}</td>
+
                             <td>
-                                    <form action="{{route('category.destroy',[$item]) }}" method="post">
+                                @if ($item->parent_id == 0)
+                                main 
+                            @else
+                                {{$item->parent->cat_title}}
+                            @endif
+                            </td>
+                            <td>
+                                    <form action="{{route('category.destroy',[$item]) }}" class="d-inline" method="post">
                                         @csrf
                                         @method("delete")
                                         <input type="submit" class="btn btn-danger" value="X">

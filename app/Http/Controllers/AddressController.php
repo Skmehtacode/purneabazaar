@@ -1,82 +1,75 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view("admin.manageAddress");
+    
+    public function index(){
+        // $data[''] = User::all();
+        $data['address'] = Address::all();
+        return view("admin.manageAddress",$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
-    {
-        //
+    {   
+        $data['user'] = User::all();
+        $data['address'] = Address::all();
+        return view('admin.insertAddress',$data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+            'user_id'=>'required',
+            'street'=>'required',
+            'landmark'=>'required',
+            'pincode'=>'required',
+            'city'=>'required',
+            'state'=>'required',
+            'name'=>'required',
+            'contact'=>'required',
+        ]);
+
+        $data = new Address();
+        $data->user_id = $request->user_id;
+        $data->street = $request->street;
+        $data->landmark = $request->landmark;
+        $data->pincode = $request->pincode;
+        $data->city = $request->city;
+        $data->state = $request->state;
+        $data->name = $request->name;
+        $data->contact = $request->contact;
+        $data->save();
+
+        return redirect()->route('address.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         //

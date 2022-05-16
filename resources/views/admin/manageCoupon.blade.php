@@ -8,10 +8,10 @@
             <div class="col-9">
                 <div class="row">
                     <div class="col-8">
-                        <h6>Manage Order</h6>
+                        <h6>Manage Coupon</h6>
                     </div>
                     <div class="col-4">
-                        <a href="" class="btn btn-success">Add new order</a>
+                        <a href="{{route('coupon.create')}}" class="btn btn-success">Add new order</a>
                     </div>
                 </div>
                 <table class="table">

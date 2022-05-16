@@ -15,8 +15,17 @@
                             <div class="mb-3">
                                 <label for="">Parent</label>
                                 <select name="parent_id" class="form-select" value="{{old("parent_id")}}">
-                                    <option value="{{$category->parent_id}}">{{$category->parent_id}}</option>
+
+                                    @if ($category->parent_id != 0)
+                                    
+                                    <option value="{{$category->parent_id}}">{{$category->parent->cat_title}}</option>
+
+                                    @else
+                                        <option value="{{$category->parent_id}}">Main Category</option>
+                                    @endif
+
                                     <option value="0">Main category</option>
+
                                     @foreach ($categories as $item)
                                         <option value="{{$item->id}}">{{$item->cat_title}}</option>
                                     @endforeach
@@ -33,7 +42,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="submit"  value="Update Category" class="btn btn-info w-100">
+                                <input type="submit"  name="Update Category" class="btn btn-info w-100">
                             </div>
                         </form>
                     </div>

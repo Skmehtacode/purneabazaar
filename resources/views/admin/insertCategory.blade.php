@@ -25,13 +25,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">category title</label>
-                                <input type="text" name="cat_title" class="form-control">
+                                <input type="text" name="cat_title" value="{{old('cat_title')}}" class="form-control">
                                 @error('cat_title')
                                     <p class="small text-danger">{{$message}}</p>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="submit"  value="Create Category" class="btn btn-info w-100">
+                                <input type="submit"  name="Create Category" class="btn btn-info w-100">
                             </div>
                         </form>
                     </div>

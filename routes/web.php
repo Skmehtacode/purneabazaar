@@ -13,7 +13,7 @@ use App\Http\Controllers\AdminController;
 
 
 
-Route::get("/",[PublicController::class,"index"])->name("homepage");
+Route::get("/{cat_id?}",[PublicController::class,"index"])->name("homepage");
 Route::get("/product/{p_id}",[PublicController::class,"view"])->name("viewProduct");
 Route::get("/cart",[PublicController::class,"cart"])->name("cart");
 Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
@@ -23,7 +23,6 @@ Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
 Route::prefix('admin')->group(function(){
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::resources([
-
         "product"=>App\Http\Controllers\ProductController::class,
         "category"=>App\Http\Controllers\CategoryController::class,
         "brand"=>App\Http\Controllers\BrandController::class,
