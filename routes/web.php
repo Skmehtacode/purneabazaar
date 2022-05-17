@@ -13,10 +13,13 @@ use App\Http\Controllers\AdminController;
 
 
 
-Route::get("/{cat_id?}",[PublicController::class,"index"])->name("homepage");
+Route::get("/",[PublicController::class,"index"])->name("homepage");
+Route::get("/category/{cat_id?}",[PublicController::class,"index"])->name("filter");
 Route::get("/product/{p_id}",[PublicController::class,"view"])->name("viewProduct");
 Route::get("/cart",[PublicController::class,"cart"])->name("cart");
 Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
+
+Route::get("/add-to-cart/{p_id}",[PublicController::class,"addToCart"])->name("addToCart");
 
 // Admin route
 

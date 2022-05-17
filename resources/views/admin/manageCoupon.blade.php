@@ -11,7 +11,7 @@
                         <h6>Manage Coupon</h6>
                     </div>
                     <div class="col-4">
-                        <a href="{{route('coupon.create')}}" class="btn btn-success">Add new order</a>
+                        <a href="{{route('coupon.create')}}" class="btn btn-success">Add new coupon</a>
                     </div>
                 </div>
                 <table class="table">
@@ -22,6 +22,18 @@
                         <th>Amount</th>
                         <th>Action</th>
                     </tr>
+                    @foreach ($coupon as $item)
+                        <tr>
+                            <td>{{$item->id}}</td>
+                            <td>{{$item->code}}</td>
+                            <td>{{$item->status}}</td>
+                            <td>{{$item->amount}}</td>
+                            <td>
+                                <input type="submit" value="X" class="btn btn-danger">
+                                <a href="" class="btn btn-success">edit</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

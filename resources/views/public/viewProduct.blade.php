@@ -43,7 +43,7 @@
                         </table>
                         <div class="row">
                             <div class="col">
-                                <a href="{{route("cart")}}" class="btn btn-success">Add To cart</a>
+                                <a href="{{route("addToCart",['p_id'=>$product->id])}}" class="btn btn-success">Add To cart</a>
                                 <a href="" class="btn btn-warning">Buy Now</a>
                             </div>
                         </div>

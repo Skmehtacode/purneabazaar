@@ -39,8 +39,12 @@
                             <td>{{$item->pincode}}</td>
                             <td>{{$item->state}}</td>
                             <td>
-                                <input type="submit" class="btn btn-danger" value="X">
-                                <a href="" class="btn btn-success">edit</a>
+                                <form action="{{route('address.destroy',[$item])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="submit" class="btn btn-danger" value="X">
+                                    <a href="{{route('address.edit',[$item])}}" class="btn btn-success">edit</a>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
