@@ -27,23 +27,6 @@
                         <th>Ordered</th>
                         <th>Action</th>
                     </tr>
-                    @foreach ($order as $item)
-                        <tr>
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->user_id}}</td>
-                            <td>{{$item->address_id}}</td>
-                            <td>{{$item->coupon_id}}</td>
-                            <td>{{$item->isDeliverd}}</td>
-                            <td>{{$item->isProcessing}}</td>
-                            <td>{{$item->isShipped}}</td>
-                            <td>{{$item->dateOfOrderd}}</td>
-                            <td>{{$item->ordered}}</td>
-                            <td>
-                                <input type="submit" class="btn btn-danger" value="X">
-                                <a href="" class="btn btn-success">edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
                 </table>
             </div>
         </div>

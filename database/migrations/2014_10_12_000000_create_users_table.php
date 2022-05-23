@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->enum("user_type",["admin","user"]);
-            $table->string("contact");
+            $table->string("contact")->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

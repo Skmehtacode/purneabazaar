@@ -10,7 +10,7 @@
             <div class="col-8 mt-3">
                <div class="card">
                    <div class="card-body">
-                       <form action="" method="POST">
+                       <form action="{{route("address.store")}}" method="POST">
                            @csrf
                            <div class="row">
                               <div class="col-4">
@@ -28,9 +28,12 @@
                                     @enderror
                                 </div>
                                 <div class="col-4">
-                                    <label for="">Address</label>
-                                    <input type="text" name="address" class="form-control" value="{{old('adddress')}}">
-                                    @error('address')
+                                    <label for="">type</label>
+                                    <select name="type" class="form-select">
+                                            <option value="office">Office</option>
+                                            <option value="home">home</option>
+                                    </select>
+                                    @error('type')
                                         <p class="small text-danger">{{$message}}</p>
                                     @enderror
                                 </div>
@@ -84,20 +87,32 @@
                </div>
             </div>
             <div class="col-4">
-                <div class="card mt-3  bg-light">
+              @foreach ($addresses as $item)
+                  
+                <div class="card mt-3  @if ($item->type == "office")
+                    border border-success
+                @else
+                    border border-danger
+                @endif bg-light">
                     <div class="card-body">
-                        <h5>Sonu Kumar (7903738819)</h5>
-                        <p class="small">Panchwati chowk Rambagh <br>Purnia</p>
-                        <a href="" class="btn btn-warning small">Use this address</a>
+                        <span class="@if ($item->type== "office")
+                            bg-success
+                        @else
+                            bg-danger
+                        @endif badge position-absolute shadow-sm text-capitalize" style="right:0;border-radius:5px 0px 0px 5px">
+                            {{$item->type}}
+                        </span>
+                        <h5>{{$item->name}} ({{$item->contact}})</h5>
+                        <p class="small mb-0">{{$item->street}} <br>{{$item->city}} ({{$item->state}}) - {{$item->pincode}}</p>
+                        <p class="small mb-0">LandMark: {{$item->landmark}}</p>
+                        <form action="{{route("paymentprocess")}}" method="POST">
+                            <input type="hidden" name="address_id" value="{{$item->id}}">
+                            @csrf
+                            <input type="submit" class="btn btn-warning small mt-2 " value="use This">
+                        </form>
                     </div>
                 </div>
-                <div class="card mt-3  bg-light">
-                    <div class="card-body">
-                        <h5>Sonu Mehta (9709464571)</h5>
-                        <p class="small">Panchwati chowk Rambagh <br>Purnia</p>
-                        <a href="" class="btn btn-warning small ">use this address</a>
-                    </div>
-                </div>
+              @endforeach
             </div>
         </div>
     </div>

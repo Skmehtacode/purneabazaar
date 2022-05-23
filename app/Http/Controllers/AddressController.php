@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PublicController;
+use Auth;
 
 class AddressController extends Controller
 {
@@ -27,18 +29,18 @@ class AddressController extends Controller
     {
         $request->validate([
 
-            'user_id'=>'required',
             'street'=>'required',
             'landmark'=>'required',
             'pincode'=>'required',
             'city'=>'required',
             'state'=>'required',
             'name'=>'required',
+            'type'=>'required',
             'contact'=>'required',
         ]);
 
         $data = new Address();
-        $data->user_id = $request->user_id;
+        $data->user_id = Auth::id();
         $data->street = $request->street;
         $data->landmark = $request->landmark;
         $data->pincode = $request->pincode;
@@ -46,9 +48,11 @@ class AddressController extends Controller
         $data->state = $request->state;
         $data->name = $request->name;
         $data->contact = $request->contact;
+        $data->type = $request->type;
         $data->save();
 
-        return redirect()->route('address.index');
+        PublicController::assignAddress($data->id);
+        return redirect()->route("checkout");
     }
 
    
@@ -80,7 +84,7 @@ class AddressController extends Controller
             'contact'=>'required',
         ]);
 
-        $data->user_id = $request->user_id;
+        $data->user_id = Auth::id();
         $data->street = $request->street;
         $data->landmark = $request->landmark;
         $data->pincode = $request->pincode;

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('isDeliverd')->default(0);
             $table->boolean('isProcessing')->default(0);
             $table->boolean('isShipped')->default(0);
-            $table->string('dateOfOrderd');
+            $table->string('dateOfOrderd')->default(0);
             $table->boolean('ordered')->default(0);
             $table->timestamps();
         });

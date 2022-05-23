@@ -20,9 +20,21 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item"><a href="{{route("homepage")}}" class="nav-link text-dark"><strong>Home</strong></a></li>
+                <li class="nav-item"><a href="{{route("cart")}}" class="nav-link text-dark"><strong>Cart</strong></a></li>
+                @guest
                 <li class="nav-item"><a href="{{route("register")}}" class="nav-link text-dark"><strong>Signup</strong></a></li>
                 <li class="nav-item"><a href="{{route("login")}}" class="nav-link text-dark"><strong>Login</strong></a></li>
-                <li class="nav-item"><a href="{{route("cart")}}" class="nav-link text-dark"><strong>Cart</strong></a></li>
+                
+                @endguest
+
+                @auth
+                <li class="nav-item"><form action="{{route("logout")}}" method="POST">
+                    @csrf
+                    <input type="submit" class="nav-link text-dark bg-transparent border-0 fw-bold" value="Logout">
+                    </form>
+                </li>
+
+                @endauth
             </ul>
         </div>
     </nav>

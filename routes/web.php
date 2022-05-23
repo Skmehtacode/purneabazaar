@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AddressController;
 
 
 
@@ -17,13 +18,19 @@ Route::get("/",[PublicController::class,"index"])->name("homepage");
 Route::get("/category/{cat_id?}",[PublicController::class,"index"])->name("filter");
 Route::get("/product/{p_id}",[PublicController::class,"view"])->name("viewProduct");
 Route::get("/cart",[PublicController::class,"cart"])->name("cart");
+Route::post("/coupon/apply",[PublicController::class,"applyCoupon"])->name("applyCoupon");
+Route::post("/payment/process",[PublicController::class,"paymentProcess"])->name("paymentprocess");
+Route::get("/coupon/remove",[PublicController::class,"removeCoupon"])->name("removeCoupon");
 Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
 
 Route::get("/add-to-cart/{p_id}",[PublicController::class,"addToCart"])->name("addToCart");
+Route::get("/remove-from-cart/{p_id}",[PublicController::class,"removeFromCart"])->name("removeFromCart");
+Route::get("/remove-item-from-cart/{p_id}",[PublicController::class,"removeItemFromCart"])->name("removeItemFromCart");
+Route::resource("address",AddressController::class)->only("store");
 
 // Admin route
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('/',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::resources([
         "product"=>App\Http\Controllers\ProductController::class,
