@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 use App\Models\{Product,Category,Order,OrderItem,Coupon,Address};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Anand\LaravelPaytmWallet\Facades\PaytmWallet;
 
 class PublicController extends Controller
 {
     public function index(Request $req,$cat_id=NULL){
         $data['products'] = Product::all();
+        if($cat_id !=null){
 
-       
+            $data['categories'] = Category::all();
+            $data['products']= Product::where('category_id',$cat_id)->get();
+        }
         $data['categories'] = Category::all();
+        
         return view("public.home",$data);
     }
 
@@ -152,4 +157,44 @@ class PublicController extends Controller
             return redirect()->route("cart");
     }
 
+    public function order()
+    {
+        $payment = PaytmWallet::with('receive');
+        $payment->prepare([
+            
+          'order' => "123322",
+          'user' => "1",
+          'mobile_number' => "7903738819",
+          'email' => "sonu@gmail.com",
+          'amount' => 200,
+          'callback_url' => 'http://127.0.0.1:8000/payment/call-back'
+        ]);
+        return $payment->receive();
+    }
+
+    /**
+     * Obtain the payment information.
+     *
+     * @return Object
+     */
+    public function paymentCallback()
+    {
+        $transaction = PaytmWallet::with('receive');
+        
+        $response = $transaction->response(); // To get raw response as array
+        //Check out response parameters sent by paytm here -> http://paywithpaytm.com/developer/paytm_api_doc?target=interpreting-response-sent-by-paytm
+        
+        if($transaction->isSuccessful()){
+          //Transaction Successful
+          print_r($response);
+        }else if($transaction->isFailed()){
+          //Transaction Failed
+        }else if($transaction->isOpen()){
+          //Transaction Open/Processing
+        }
+        $transaction->getResponseMessage(); //Get Response Message If Available
+        //get important parameters via public methods
+        $transaction->getOrderId(); // Get order id
+        $transaction->getTransactionId(); // Get transaction id
+    }    
 }

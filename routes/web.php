@@ -22,6 +22,8 @@ Route::post("/coupon/apply",[PublicController::class,"applyCoupon"])->name("appl
 Route::post("/payment/process",[PublicController::class,"paymentProcess"])->name("paymentprocess");
 Route::get("/coupon/remove",[PublicController::class,"removeCoupon"])->name("removeCoupon");
 Route::get("/checkout",[PublicController::class,"checkout"])->name("checkout");
+Route::get("/payment/order",[PublicController::class,"order"])->name("paymentnow");
+Route::post("/payment/call-back",[PublicController::class,"paymentCallback"])->name("paymentcallback");
 
 Route::get("/add-to-cart/{p_id}",[PublicController::class,"addToCart"])->name("addToCart");
 Route::get("/remove-from-cart/{p_id}",[PublicController::class,"removeFromCart"])->name("removeFromCart");

@@ -159,6 +159,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+            // Other service providers...
+        Anand\LaravelPaytmWallet\PaytmWalletServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -210,6 +212,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        'PaytmWallet' => Anand\LaravelPaytmWallet\Facades\PaytmWallet::class,
+
     ])->toArray(),
 
 ];
