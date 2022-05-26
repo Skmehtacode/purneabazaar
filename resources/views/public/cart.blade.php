@@ -7,6 +7,7 @@
 </div>
     <div class="container mt-3">
       @auth
+      @if ($order)
       <div class="row">
         <div class="col-8">
             <h1>My Cart</h1>
@@ -74,6 +75,9 @@
             @endif
         </div>
     </div>
+      @else
+          <h1>Cart is empty please buy more save more</h1>
+      @endif
       @endauth
 
       @guest

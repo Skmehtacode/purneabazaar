@@ -105,8 +105,9 @@
                         <h5>{{$item->name}} ({{$item->contact}})</h5>
                         <p class="small mb-0">{{$item->street}} <br>{{$item->city}} ({{$item->state}}) - {{$item->pincode}}</p>
                         <p class="small mb-0">LandMark: {{$item->landmark}}</p>
-                        <form action="{{route("paymentprocess")}}" method="POST">
+                        <form action="{{route("paymentnow")}}" method="POST">
                             <input type="hidden" name="address_id" value="{{$item->id}}">
+                            <input type="hidden" name="amount" value="{{get_payble_amount()}}">
                             @csrf
                             <input type="submit" class="btn btn-warning small mt-2 " value="use This">
                         </form>

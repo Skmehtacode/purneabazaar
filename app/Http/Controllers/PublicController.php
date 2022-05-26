@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\{Product,Category,Order,OrderItem,Coupon,Address};
+use App\Models\{Product,Category,Order,OrderItem,Coupon,Address,Payment};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Anand\LaravelPaytmWallet\Facades\PaytmWallet;
@@ -157,16 +157,29 @@ class PublicController extends Controller
             return redirect()->route("cart");
     }
 
-    public function order()
+    public function order(Request $req)
     {
         $payment = PaytmWallet::with('receive');
+        $order = get_order();
+        $order->address_id = $req->address_id;
+        $order->save();
+
+        $user = Auth::user();
+
+        $pay = new Payment();
+
+        $pay->order_id = $order->id;
+        $pay->status = 0;
+        $pay->amount = $req->amount;
+        $pay->save();
+
         $payment->prepare([
             
-          'order' => "123322",
-          'user' => "1",
-          'mobile_number' => "7903738819",
-          'email' => "sonu@gmail.com",
-          'amount' => 200,
+          'order' => uniqid(),
+          'user' => Auth::id(),
+          'mobile_number' => $user->contact,
+          'email' => $user->email,
+          'amount' => $req->amount,
           'callback_url' => 'http://127.0.0.1:8000/payment/call-back'
         ]);
         return $payment->receive();
@@ -187,6 +200,23 @@ class PublicController extends Controller
         if($transaction->isSuccessful()){
           //Transaction Successful
           print_r($response);
+
+          $pay = Payment::where("order_id",get_order()->id)->first();
+          $pay->txn_id = $response['TXNID'];
+          $pay->bank_name = $response['BANKNAME'];
+          $pay->mode = $response["PAYMENTMODE"];
+          $pay->dateofpayment = $response["TXNDATE"];
+          $pay->status = 1;
+          $pay->save();
+
+          $order = get_order();
+          $order->ordered = true;
+          foreach($order->orderItem as $item){
+              $item->ordered = true;
+              $item->save();
+          }
+          $order->save();
+
         }else if($transaction->isFailed()){
           //Transaction Failed
         }else if($transaction->isOpen()){
