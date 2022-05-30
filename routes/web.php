@@ -30,6 +30,8 @@ Route::get("/remove-from-cart/{p_id}",[PublicController::class,"removeFromCart"]
 Route::get("/remove-item-from-cart/{p_id}",[PublicController::class,"removeItemFromCart"])->name("removeItemFromCart");
 Route::resource("address",AddressController::class)->only("store");
 
+Route::get("/my-order",[PublicController::class,"myOrder"])->name("myorder");
+
 // Admin route
 
 Route::prefix('admin')->middleware(['auth'])->group(function(){

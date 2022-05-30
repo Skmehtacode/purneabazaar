@@ -12,6 +12,9 @@ class Order extends Model
     public function orderItem(){
         return $this->hasMany(OrderItem::class,"order_id","id");
     }
+    public function payment(){
+        return $this->hasOne(Payment::class,"order_id","id");
+    }
 
     public function coupon(){
         return $this->hasOne(Coupon::class,"id","coupon_id");

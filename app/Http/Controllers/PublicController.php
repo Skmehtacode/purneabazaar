@@ -5,6 +5,7 @@ use App\Models\{Product,Category,Order,OrderItem,Coupon,Address,Payment};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Anand\LaravelPaytmWallet\Facades\PaytmWallet;
+use Carbon\Carbon;
 
 class PublicController extends Controller
 {
@@ -49,7 +50,7 @@ class PublicController extends Controller
 
     public function paymentProcess(Request $req){
         $this->assignAddress($req->address_id);
-
+        $this->order();
     
     }
     // add to cart
@@ -211,6 +212,7 @@ class PublicController extends Controller
 
           $order = get_order();
           $order->ordered = true;
+          $order->dateOfOrderd =  Carbon::now()->toDateTimeString();
           foreach($order->orderItem as $item){
               $item->ordered = true;
               $item->save();
@@ -226,5 +228,11 @@ class PublicController extends Controller
         //get important parameters via public methods
         $transaction->getOrderId(); // Get order id
         $transaction->getTransactionId(); // Get transaction id
-    }    
+    } 
+    
+    
+    public function myOrder(){
+        $order['order']=Order::where([['ordered',true],["user_id",Auth::id()]])->orderby("id","DESC")->get();
+        return view('public.myorder',$order);
+    }
 }
